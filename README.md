@@ -8,63 +8,23 @@ A modern, responsive, and real-time Dish Management Dashboard built with the MER
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend:** React, Vite, Tailwind CSS v3, Axios, Socket.IO Client, Lucide React
-- **Backend:** Node.js, Express.js, Mongoose (MongoDB ODM), Socket.IO
-- **Database:** MongoDB (Local or Atlas)
-- **Process Manager (Development):** Concurrently, Nodemon
 
----
+### Backend
+- Express.js
+- MongoDB (Mongoose)
+- Socket.IO
 
-## 📂 Project Structure
-
-```text
-dish-dashboard/
-├── backend/
-│   ├── src/
-│   │   ├── config/          # DB connections setup
-│   │   │   └── db.js
-│   │   ├── controllers/     # API handler actions
-│   │   │   └── dish.controller.js
-│   │   ├── middleware/      # Error filters
-│   │   │   └── error.middleware.js
-│   │   ├── models/          # Schema structure
-│   │   │   └── dish.model.js
-│   │   ├── routes/          # REST routes
-│   │   │   └── dish.routes.js
-│   │   ├── seed/            # Seed data helper
-│   │   │   └── dish.seed.js
-│   │   └── server.js        # Backend entrypoint
-│   ├── .env.example
-│   ├── .env
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/      # UI components (DishCard, DishList)
-│   │   │   ├── DishCard.jsx
-│   │   │   └── DishList.jsx
-│   │   ├── hooks/           # Custom hook for Socket.IO
-│   │   │   └── useSocket.js
-│   │   ├── pages/           # Dashboard page view
-│   │   │   └── Dashboard.jsx
-│   │   ├── services/        # Axios API layers
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── .env.example
-│   ├── .env
-│   ├── index.html
-│   ├── postcss.config.js
-│   ├── tailwind.config.js
-│   ├── vite.config.js
-│   └── package.json
-├── package.json             # Root monorepo configuration
-└── README.md
-```
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- Axios
+- Socket.IO Client
 
 ---
 
 ## ⚙️ Environment Configuration
+
+The project is configured using MongoDB Atlas through environment variables.
 
 ### Backend (`backend/.env`)
 Create a `.env` file in the `backend/` directory:
