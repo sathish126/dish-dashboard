@@ -18,19 +18,21 @@ connectDB().then(() => {
   seedDatabase();
 });
 
-// Configure CORS — allow Vercel deployment + local dev
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5173',
-  'http://localhost:3000',
-].filter(Boolean);
+// Configure CORS — allow any Vercel deployment + local dev
+const isOriginAllowed = (origin) => {
+  if (!origin) return true; // curl, Postman, server-to-server
+  if (origin.endsWith('.vercel.app')) return true; // all Vercel deployments
+  if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) return true;
+  if (origin.startsWith('http://localhost')) return true;
+  return false;
+};
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. curl, Postman) or whitelisted origins
-    if (!origin || allowedOrigins.some((o) => origin.startsWith(o))) {
+    if (isOriginAllowed(origin)) {
       callback(null, true);
     } else {
+      console.warn(`CORS blocked origin: ${origin}`);
       callback(new Error(`CORS blocked: ${origin}`));
     }
   },
@@ -41,9 +43,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Initialize Socket.IO
+// Initialize Socket.IO with explicit transport support for Render
 const io = new Server(server, {
   cors: corsOptions,
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
 });
 
 // Attach Socket.IO instance to app so it is accessible from controllers
